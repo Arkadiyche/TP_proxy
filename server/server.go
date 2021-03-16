@@ -127,7 +127,7 @@ func RepeatRequest(url string, w http.ResponseWriter, r *http.Request, db *pgx.C
 	}
 	request := database.GetRequest(id, db)
 	r = &request
-	fmt.Println(request)
+	//fmt.Println(request)
 	http.Redirect(w, &request, request.URL.String(), 301)
 	return
 }
@@ -145,11 +145,11 @@ func CheckWithParamMiner(url string, w http.ResponseWriter, r *http.Request, db 
 		fmt.Println("request doesn't exist")
 		return
 	}
-	fmt.Println(request.URL)
-	for key, val := range models.Params {
+	//fmt.Println(request.URL)
+	for _, val := range models.Params {
 		randomString := utils.RandStringRunes()
 		request.URL.RawQuery = val+"="+randomString
-		fmt.Println("!!!", request.URL, key)
+		//fmt.Println("!!!", request.URL, key)
 		resp, err := http.DefaultTransport.RoundTrip(&request)
 		if err != nil {
 			fmt.Println("error with round trip")
@@ -160,8 +160,8 @@ func CheckWithParamMiner(url string, w http.ResponseWriter, r *http.Request, db 
 			fmt.Println("error with Read all")
 			return
 		}
-		if strings.Contains(string(body), val) {
-			w.Write([]byte(val + "найден скрытый гет параметр\n"))
+		if strings.Contains(string(body), randomString) {
+			w.Write([]byte(val + "-найден скрытый гет параметр\n"))
 			flag = true
 		}
 	}

@@ -88,7 +88,7 @@ func GetRequest(id int, db *pgx.ConnPool) http.Request {
 		}
 	}
 	result.Header = headMap
-	fmt.Println(result)
+	//fmt.Println(result)
 	return result
 }
 
@@ -107,6 +107,6 @@ func GetAllRequests(db *pgx.ConnPool) AllRequests{
 		}
 		allReq = append(allReq, request)
 	}
-	fmt.Println(allReq)
+	//fmt.Println(allReq)
 	return allReq
 }
