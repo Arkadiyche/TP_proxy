@@ -28,9 +28,9 @@ func NewServer(port string, db *pgx.ConnPool) *http.Server {
 			if r.Method == http.MethodConnect {
 				handleTunneling(w, r)
 			} else {
-				checkPattern := `^/check/[0-9]+$`
+				checkPattern := `^/scan/[0-9]+$`
 				requestsPattern := `^/requests$`
-				requestPattern := `^/request/[0-9]+$`
+				requestPattern := `^/repeat/[0-9]+$`
 				if match, _ := regexp.Match(requestsPattern, []byte(r.URL.String())); match {
 					RequestList(w, r, db)
 				} else if match, _ := regexp.Match(requestPattern, []byte(r.URL.String())); match {
